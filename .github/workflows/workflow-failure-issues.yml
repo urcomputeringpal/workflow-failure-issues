@@ -18,7 +18,8 @@ jobs:
             issues: write
         steps:
             - uses: actions/checkout@v3
-            - name: find template
+
+            - name: Find template
               id: template
               env:
                   WORKFLOW_RUN_PATH: ${{ github.event.workflow_run.path }}
@@ -31,7 +32,8 @@ jobs:
                         echo "path=.github/workflows/workflow-failure-issues-issue-template.md" >> $GITHUB_OUTPUT
                     fi
 
-            - uses: JasonEtco/create-an-issue@v2
+            - name: Create issue
+              uses: JasonEtco/create-an-issue@v2
               with:
                   filename: ${{ steps.template.outputs.path }}
                   # Update an existing open issue instead of creating a new one each time.
@@ -51,7 +53,7 @@ jobs:
             contents: read
             issues: write
         steps:
-            - name: close issue
+            - name: Close issue
               uses: actions/github-script@v6
               env:
                   WORKFLOW_NAME: ${{ github.event.workflow.name }}
