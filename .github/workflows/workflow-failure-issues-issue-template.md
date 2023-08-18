@@ -1,6 +1,6 @@
 ---
 title: {{ payload.workflow.name }} failed on {{ payload.workflow_run.head_branch }}
-labels: {{ env.LABELS }}, Operational Excellence
+labels: {{ env.LABELS }}
 ---
 
 <!-- Please don't remove env.LABELS from above. Doing so will result in tons of dupe issues. -->
@@ -11,7 +11,7 @@ labels: {{ env.LABELS }}, Operational Excellence
 This workflow is using the default template for its failure notifications.
 Create a new one at `.github/workflows/{{ payload.workflow_run.head_branch }}-issue-template.md` to customize the message.
 If possible, include information about why failure of this workflow should schedule work.
-For example, failures of the "Workflow Failure Issues" workflow indicate that work that is important to the Operational Excellence group and possibly other teams is not being scheduled.
+For example, failures of the "Workflow Failure Issues" workflow indicate that work that has been previously determined to be important is not being scheduled.
 
 -   {{ payload.workflow_run.html_url }}
 -   {{ payload.workflow.html_url }}
