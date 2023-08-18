@@ -70,5 +70,7 @@ jobs:
                                 issue_number: issues.data[0].number,
                                 state: 'closed'
                             });
+                        } else {
+                            console.log("No issue found")
                         }
                       });
