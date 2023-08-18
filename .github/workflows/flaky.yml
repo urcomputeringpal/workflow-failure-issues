@@ -10,4 +10,4 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: |
           echo "$GITHUB_CONTEXT"
-          (( RANDOM % 2 )) && echo "Fail" || echo "Success"
+          (( RANDOM % 2 )) && false || true
