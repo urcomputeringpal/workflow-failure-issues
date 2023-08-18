@@ -9,5 +9,4 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: |
-          echo "$GITHUB_CONTEXT"
-          (( RANDOM % 2 )) && false || true
+          [ $((RANDOM % 2)) -eq 0 ]
