@@ -1,0 +1,74 @@
+name: Open issues on workflow failure, close on success
+on:
+    workflow_call:
+    workflow_run:
+        workflows:
+            - Flaky
+        types:
+            - completed
+jobs:
+    create-or-update:
+        name: Create or update issue
+        if: |
+            github.event.workflow_run.head_branch == github.event.repository.default_branch &&
+            github.event.workflow_run.conclusion == 'failure'
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            issues: write
+        steps:
+            - uses: actions/checkout@v3
+            - name: find template
+              id: template
+              env:
+                  WORKFLOW_RUN_PATH: ${{ github.event.workflow_run.path }}
+              run: |
+                  base=$(echo ${WORKFLOW_RUN_PATH} | rev | cut -f 1 -d '/' | rev | cut -f 1 -d )
+                  path=.github/workflows/${base}-issue-template.md
+                    if [ -f $path ]; then
+                        echo "path=$path" >> $GITHUB_OUTPUT
+                    else
+                        echo "path=.github/workflows/workflow-failure-issues-issue-template.md" >> $GITHUB_OUTPUT
+                    fi
+
+            - uses: JasonEtco/create-an-issue@v2
+              with:
+                  filename: ${{ steps.template.outputs.path }}
+                  # Update an existing open issue instead of creating a new one each time.
+                  update_existing: true
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  # These labels are used below to find the issue to close it
+                  LABELS: ${{ github.event.workflow.name }}, actions, failure
+
+    close:
+        name: Close issue
+        if: |
+            github.event.workflow_run.head_branch == github.event.repository.default_branch &&
+            github.event.workflow_run.conclusion == 'success'
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            issues: write
+        steps:
+            - name: close issue
+              uses: actions/github-script@v6
+              env:
+                  WORKFLOW_NAME: ${{ github.event.workflow.name }}
+              with:
+                  script: |
+                      github.rest.issues.listForRepo({
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        state: "open",
+                        labels: [process.env.WORKFLOW_NAME, 'actions', 'failure']
+                      }).then((issues) => {
+                        if (issues.data.length != 0) {
+                            github.rest.issues.update({
+                                owner: context.repo.owner,
+                                repo: context.repo.repo,
+                                issue_number: issues.data[0].number,
+                                state: 'closed'
+                            });
+                        }
+                      });

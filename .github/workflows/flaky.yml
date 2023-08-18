@@ -1,0 +1,13 @@
+name: Flaky
+on:
+  push:
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail half of the time.
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: |
+          echo "$GITHUB_CONTEXT"
+          (( RANDOM % 2 )) && echo "Fail" || echo "Success"
