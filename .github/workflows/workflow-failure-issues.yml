@@ -24,22 +24,25 @@ jobs:
               env:
                   WORKFLOW_RUN_PATH: ${{ github.event.workflow_run.path }}
               run: |
-                  base=$(echo ${WORKFLOW_RUN_PATH} | rev | cut -f 1 -d '/' | rev | cut -f 1 -d .)
-                  path=.github/workflows/${base}-issue-template.md
-                    if [ -f $path ]; then
-                        echo "path=$path" >> $GITHUB_OUTPUT
+                    base=$(echo ${WORKFLOW_RUN_PATH} | rev | cut -f 1 -d '/' | rev | cut -f 1 -d .)
+                    echo "workflow-template=.github/workflows/${base}-issue-template.md" >> $GITHUB_OUTPUT
+                    path=".github/workflows/${base}-issue-template.md"
+                    if [ -f "$path" ]; then
+                        echo "template=$path" >> $GITHUB_OUTPUT
                     else
-                        echo "path=.github/workflows/workflow-failure-issues-issue-template.md" >> $GITHUB_OUTPUT
+                        echo "template=.github/workflows/workflow-failure-issues-issue-template.md" >> $GITHUB_OUTPUT
                     fi
 
             - name: Create issue
               uses: urcomputeringpal/create-an-issue@v2.9.2-pre
               with:
-                  filename: ${{ steps.template.outputs.path }}
+                  filename: ${{ steps.template.outputs.template }}
                   # Update an existing open issue instead of creating a new one each time.
                   update_existing: true
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  WORKFLOW_TEMPLATE: ${{ steps.template.output.workflow-template }}
+                  
 
     close:
         name: Close issue
