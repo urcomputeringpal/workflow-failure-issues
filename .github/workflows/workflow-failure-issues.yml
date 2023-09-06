@@ -43,7 +43,7 @@ jobs:
                   update_existing: true
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  WORKFLOW_TEMPLATE: ${{ steps.template.output.template }}
+                  WORKFLOW_TEMPLATE: ${{ steps.template.outputs.template }}
                   
 
     close:
