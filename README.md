@@ -19,7 +19,7 @@ on:
       - completed
 jobs:
   workflow-failure-issues:
-    uses: urcomputeringpal/workflow-failure-issues/.github/workflows/workflow-failure-issues.yml@v0.0.2
+    uses: urcomputeringpal/workflow-failure-issues/.github/workflows/workflow-failure-issues.yml@v0.0.5
     if: |
       (
         github.event_name == 'schedule' ||
