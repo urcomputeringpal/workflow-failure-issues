@@ -15,7 +15,6 @@ This workflow is using the default template for its failure notifications.
 Create a new one to customize the message:
 
 ```
-cd .github/workflows
 wget https://raw.githubusercontent.com/urcomputeringpal/workflow-failure-issues/main/.github/workflows/workflow-failure-issues-issue-template.md
 mv workflow-failure-issues-issue-template.md {{ env.WORKFLOW_TEMPLATE }}
 # edit {{ env.WORKFLOW_TEMPLATE }}
