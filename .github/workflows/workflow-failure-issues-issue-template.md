@@ -1,6 +1,8 @@
 ---
 title: {{ payload.workflow.name }} failed on {{ payload.workflow_run.head_branch }}
-labels: {{ env.LABELS }}, default-template
+labels:
+- "{{ env.LABELS }}"
+- default-template
 ---
 
 <!-- Please don't remove env.LABELS from above. Doing so will result in tons of dupe issues. -->
