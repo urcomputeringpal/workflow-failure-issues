@@ -31,6 +31,7 @@ jobs:
                     if [ -f "$path" ]; then
                         echo "filename=$path" >> $GITHUB_OUTPUT
                     else
+                        wget https://raw.githubusercontent.com/urcomputeringpal/workflow-failure-issues/v0/.github/workflows/workflow-failure-issues-issue-template.md
                         echo "filename=.github/workflows/workflow-failure-issues-issue-template.md" >> $GITHUB_OUTPUT
                     fi
 
