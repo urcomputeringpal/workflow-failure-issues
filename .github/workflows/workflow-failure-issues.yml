@@ -33,7 +33,7 @@ jobs:
                     fi
 
             - name: Create issue
-              uses: JasonEtco/create-an-issue@v2
+              uses: urcomputeringpal/create-an-issue@v2.9.2-pre
               with:
                   filename: ${{ steps.template.outputs.path }}
                   # Update an existing open issue instead of creating a new one each time.
