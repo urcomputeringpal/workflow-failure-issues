@@ -2,7 +2,7 @@
 
 ## Setup
 
-1. Copy [`./github/workflows/workflow-failure-issues-issue-template.md`](./github/workflows/workflow-failure-issues-issue-template.md) to your repo. Customize as needed.
+1. Copy [`.github/workflows/workflow-failure-issues-issue-template.md`](https://github.com/urcomputeringpal/workflow-failure-issues/blob/main/.github/workflows/workflow-failure-issues-issue-template.md) to your repo. Customize as needed.
 1. Add the below workflow to your repo, maybe as `.github/workflows/workflow-failure-issues.yml`
 
 ```yaml
