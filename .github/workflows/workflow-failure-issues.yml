@@ -17,7 +17,9 @@ jobs:
             contents: read
             issues: write
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
+              with:
+                show-progress: false
 
             - name: Find template
               id: template
@@ -31,6 +33,7 @@ jobs:
                     if [ -f "$path" ]; then
                         echo "filename=$path" >> $GITHUB_OUTPUT
                     else
+                        cd .github/workflows
                         wget https://raw.githubusercontent.com/urcomputeringpal/workflow-failure-issues/v0/.github/workflows/workflow-failure-issues-issue-template.md
                         echo "filename=.github/workflows/workflow-failure-issues-issue-template.md" >> $GITHUB_OUTPUT
                     fi
