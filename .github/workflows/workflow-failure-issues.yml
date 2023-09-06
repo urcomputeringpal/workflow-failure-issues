@@ -24,7 +24,6 @@ jobs:
               env:
                   WORKFLOW_RUN_PATH: ${{ github.event.workflow_run.path }}
               run: |
-                    set -x
                     base=$(echo ${WORKFLOW_RUN_PATH} | rev | cut -f 1 -d '/' | rev | cut -f 1 -d .)
                     echo "basename=${base}" >> $GITHUB_OUTPUT
                     echo "template=.github/workflows/${base}-issue-template.md" >> $GITHUB_OUTPUT
