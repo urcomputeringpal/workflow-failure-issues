@@ -1,5 +1,5 @@
 ---
-title: {{ payload.workflow.name }} failed on {{ payload.workflow_run.head_branch }}
+title: "{{ payload.workflow.name }} failed on {{ payload.workflow_run.head_branch }}"
 labels:
 - "{{ env.LABELS }}"
 - default-template
