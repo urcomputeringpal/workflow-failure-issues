@@ -1,8 +1,10 @@
 ---
 title: "{{ payload.workflow.name }} failed on {{ payload.workflow_run.head_branch }}"
 labels:
-- "{{ env.LABELS }}"
-- default-template
+- "{{ env.LABEL }}"
+- "{{ action }}"
+- actions
+- failure
 ---
 
 <!-- Please don't remove env.LABELS from above. Doing so will result in tons of dupe issues. -->

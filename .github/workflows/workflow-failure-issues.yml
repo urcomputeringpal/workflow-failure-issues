@@ -40,8 +40,6 @@ jobs:
                   update_existing: true
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  # These labels are used below to find the issue to close it
-                  LABELS: ${{ github.event.workflow.name }}, actions, failure
 
     close:
         name: Close issue
