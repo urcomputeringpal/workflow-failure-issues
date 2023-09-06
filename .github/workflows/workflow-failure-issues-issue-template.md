@@ -1,13 +1,12 @@
 ---
 title: "{{ payload.workflow.name }} failed on {{ payload.workflow_run.head_branch }}"
 labels:
-- "{{ env.LABEL }}"
 - "{{ action }}"
 - actions
 - failure
 ---
 
-<!-- Please don't remove env.LABELS from above. Doing so will result in tons of dupe issues. -->
+<!-- Please don't remove any of the labels from above. Doing so will result in tons of dupe issues. -->
 <!-- See https://github.com/JasonEtco/create-an-issue for info about the interpolation supported. -->
 
 {{ payload.workflow.name }} failed on a {{ payload.workflow_run.event }} event on {{ payload.workflow_run.head_branch }} at {{ payload.workflow_run.created_at }}
