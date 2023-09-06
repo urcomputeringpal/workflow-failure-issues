@@ -1,7 +1,7 @@
 ---
 title: "{{ payload.workflow.name }} failed on {{ payload.workflow_run.head_branch }}"
 labels:
-- "{{ action }}"
+- "{{ workflow }}"
 - actions
 - failure
 ---
