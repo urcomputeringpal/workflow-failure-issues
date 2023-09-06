@@ -1,5 +1,9 @@
 # workflow-failure-issues
 
+- Creates issues like https://github.com/urcomputeringpal/workflow-failure-issues/issues/8 when critical workflows fails on the default branch.
+- Closes them when the workflow passes.
+- Supports per-workflow issue templates.
+
 ## Setup
 
 1. Copy [`.github/workflows/workflow-failure-issues-issue-template.md`](https://github.com/urcomputeringpal/workflow-failure-issues/blob/main/.github/workflows/workflow-failure-issues-issue-template.md) to your repo. Customize as needed.
