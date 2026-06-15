@@ -39,7 +39,7 @@ jobs:
                     fi
 
             - name: Create issue
-              uses: urcomputeringpal/create-an-issue@v2.9.2-pre
+              uses: urcomputeringpal/create-an-issue@3a43ec949cf0e3dfabfe464fc9abb3e3e21b4167 # v2.9.2-pre
               with:
                   filename: ${{ steps.template.outputs.filename }}
                   # Update an existing open issue instead of creating a new one each time.
