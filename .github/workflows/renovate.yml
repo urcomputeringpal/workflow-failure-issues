@@ -1,0 +1,42 @@
+name: Renovate
+on:
+  push:
+    branches:
+      - main
+      - renovate/configure
+    paths:
+      - "renovate.json"
+      - ".github/workflows/*.yml"
+  pull_request:
+    paths:
+      - "renovate.json"
+      - ".github/workflows/renovate.yml"
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event_name == 'merge_group' && github.event.merge_group.base_ref || github.ref_name }}
+  cancel-in-progress: true
+jobs:
+  renovate:
+    name: Update
+    if: github.event_name != 'pull_request' || contains(github.event.pull_request.labels.*.name, 'renovate')
+    uses: urcomputeringpal/.github/.github/workflows/renovate.yaml@59512c621c99723dfeee313e27b04385185b5f74 # main
+    with:
+      renovate_app_slug: ur-renovate
+      onboarding: "true"
+    secrets:
+      RENOVATE_APP_ID: ${{ secrets.RENOVATE_APP_ID }}
+      RENOVATE_APP_PEM: ${{ secrets.RENOVATE_APP_PEM }}
+
+  validate:
+    name: Validate
+    if: github.event_name == 'pull_request' && !contains(github.event.pull_request.labels.*.name, 'renovate')
+    uses: urcomputeringpal/.github/.github/workflows/renovate.yaml@59512c621c99723dfeee313e27b04385185b5f74 # main
+    with:
+      renovate_app_slug: ur-renovate
+      dry_run_branch: ${{ github.event.pull_request.head.ref }}
+    secrets:
+      RENOVATE_APP_ID: ${{ secrets.RENOVATE_APP_ID }}
+      RENOVATE_APP_PEM: ${{ secrets.RENOVATE_APP_PEM }}
