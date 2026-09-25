@@ -22,7 +22,7 @@ jobs:
   renovate:
     name: Update
     if: github.event_name != 'pull_request' || contains(github.event.pull_request.labels.*.name, 'renovate')
-    uses: urcomputeringpal/.github/.github/workflows/renovate.yaml@59512c621c99723dfeee313e27b04385185b5f74 # main
+    uses: urcomputeringpal/.github/.github/workflows/renovate.yaml@84e5a4cb943ff646f32ab731c43aaf9c04c8cecb # main
     with:
       renovate_app_slug: ur-renovate
       onboarding: "true"
@@ -33,7 +33,7 @@ jobs:
   validate:
     name: Validate
     if: github.event_name == 'pull_request' && !contains(github.event.pull_request.labels.*.name, 'renovate')
-    uses: urcomputeringpal/.github/.github/workflows/renovate.yaml@59512c621c99723dfeee313e27b04385185b5f74 # main
+    uses: urcomputeringpal/.github/.github/workflows/renovate.yaml@84e5a4cb943ff646f32ab731c43aaf9c04c8cecb # main
     with:
       renovate_app_slug: ur-renovate
       dry_run_branch: ${{ github.event.pull_request.head.ref }}
